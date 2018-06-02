@@ -1,19 +1,75 @@
 <template>
-  <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
-    <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
-      <router-view></router-view>
-    </main>
-  </div>
+  <v-app light>
+    <v-navigation-drawer fixed temporary clipped v-model="drawer" app>
+      <!--<img src="./assets/images/image.png" style="height:auto; width:100%">-->
+      <v-list>
+        <v-list-tile value="true" v-for="(item, i) in items" :key="i" :href="'#' + item.link" exact>
+          <v-list-tile-action>
+            <v-icon light v-html="item.icon"></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="item.title"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar fixed clipped-left app >
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+    <v-content>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-content>
+    <v-footer dar:fixed="fixed" dark app>
+      <v-spacer></v-spacer>
+      <span style="color:white">HAL &copy; 2018</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  export default {
+    data () {
+      return {
+        clipped: false,
+        drawer: false,
+        fixed: false,
+        items: [{
+          icon: 'explore',
+          title: 'Explore',
+          link: '/'
+        },
+        {
+          icon: 'account_circle',
+          title: 'Profile',
+          link: '/profile'
+        },
+        {
+          icon: 'wifi_tethering',
+          title: 'News',
+          link: '/news'
+        },
+        {
+          icon: 'description',
+          title: 'About',
+          link: '/about'
+        },
+        {
+          icon: 'settings',
+          title: 'Settings',
+          link: '/settings'
+        }],
+        active: null,
+        miniVariant: false,
+        right: true,
+        rightDrawer: false,
+        title: 'Travel with HAL'
+      }
+    }
+  }
 </script>
 
 <style>

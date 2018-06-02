@@ -1,4 +1,4 @@
-# hal-app
+# HAL app
 
 > A Vue.js project
 
